@@ -1,20 +1,17 @@
 --[
 --[[
 lvim is the global options object
-
 Linters should be
 filled in as strings with either
 a global executable or a path to
 an executable
 ]]
--- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
-
 -- general
 vim.opt.relativenumber = true
 
 vim.opt.clipboard = "unnamedplus"
 
-lvim.colorscheme = "lunar"
+lvim.colorscheme = "catppuccin"
 lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.transparent_window = true
@@ -26,8 +23,12 @@ lvim.leader = "space"
 
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
-lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["<leader>pv"] = ":Ex<cr>"
+lvim.keys.normal_mode["<A-h>"] = ":BufferLineMovePrev<cr>"
+lvim.keys.normal_mode["<A-l>"] = ":BufferLineMoveNext<cr>"
+lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<cr>"
+lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<cr>"
+
 
 lvim.builtin.which_key.mappings["n"] = {
     name = "Neotest",
@@ -154,12 +155,8 @@ code_actions.setup {
 
 lvim.plugins = {
     { "catppuccin/nvim" },
+    { 'mfussenegger/nvim-dap' },
     { 'mg979/vim-visual-multi' },
-    -- { 'ggandor/leap.nvim',
-    --   config = function()
-    --     require('leap').add_default_mappings()
-    --   end
-    -- },
     {
         "windwp/nvim-spectre",
         event = "BufRead",
@@ -221,13 +218,44 @@ lvim.plugins = {
         end,
     },
     -- {
-    --   "ggandor/leap.nvim",
-    --   config = function()
-    --     require("leap").add_default_mappings()
-    --   end
-    -- }
+    --     "nvim-neo-tree/neo-tree.nvim",
+    --     branch = "v2.x",
+    --     requires = {
+    --         "nvim-lua/plenary.nvim",
+    --         "nvim-tree/nvim-web-devicons",
+    --         "MunifTanjim/nui.nvim",
+    --     },
+    --     config = function()
+    --       require("neo-tree").setup({
+    --           close_if_last_window = true,
+    --           window = {
+    --               width = 30,
+    --           },
+    --           buffers = {
+    --               follow_current_file = true,
+    --           },
+    --           filesystem = {
+    --               follow_current_file = true,
+    --               filtered_items = {
+    --                   hide_dotfiles = false,
+    --                   hide_gitignored = false,
+    --                   hide_by_name = {
+    --                       "node_modules"
+    --                   },
+    --                   never_show = {
+    --                       ".DS_Store",
+    --                       "thumbs.db"
+    --                   },
+    --               },
+    --           },
+    --       })
+    --     end
+    -- },
 }
--- UNCOMMENT AFTER INSTALLATION OF MINI.MAP
+
+-- lvim.builtin.nvimtree.active = false -- NOTE: using neo-tree
+
+-- UNCOMMENT ONLY AFTER INSTALLATION OF MINI.MAP
 -- Mini.map configuration
 lvim.autocommands = {
     {
